@@ -37,4 +37,5 @@ export class CatsController {
   findAll() {
     return 'This route uses a wildcard';
   }
+  // https://docs.nestjs.com/controllers#route-wildcards:~:text=Returned%20values%20will%20override%20any%20arguments%20passed%20to%20the%20%40Redirect()%20decorator.%20For%20example%3A
 }
