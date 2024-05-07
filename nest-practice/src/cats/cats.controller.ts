@@ -1,4 +1,4 @@
-import { Controller, Get, HttpCode, Post, Req } from '@nestjs/common';
+import { Controller, Get, HttpCode, Param, Post, Query, Req } from '@nestjs/common';
 
 type TGetCatsResponse = {
   name: string;
@@ -37,5 +37,21 @@ export class CatsController {
   findAll() {
     return 'This route uses a wildcard';
   }
-  // https://docs.nestjs.com/controllers#route-wildcards:~:text=Returned%20values%20will%20override%20any%20arguments%20passed%20to%20the%20%40Redirect()%20decorator.%20For%20example%3A
+
+  @Get('docs')
+  getDocs(@Query('version') version) {
+    return { version: version };
+  }
+  @Get('/doc/:id')
+  findOne(@Param() params: any): string {
+    console.log(params.id);
+    return `This action returns a #${params.id} cat`;
+  }
+
+  @Get('/doc1/:id')
+  findOneWithDirectRef(@Param('id') id: string): string {
+    console.log(id);
+    return `This action returns a #${id} cat`;
+  }
+  // https://docs.nestjs.com/controllers#route-wildcards:~:text=scopes%20here.-,Asynchronicity,-%23
 }
