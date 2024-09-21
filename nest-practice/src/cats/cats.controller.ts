@@ -1,4 +1,14 @@
-import { Controller, Get, HttpCode, Param, Post, Query, Req } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  HttpCode,
+  Param,
+  Post,
+  Query,
+  Req,
+} from '@nestjs/common';
+import { CatService } from './cat.service';
+import { Cat } from './cat.entity';
 
 type TGetCatsResponse = {
   name: string;
@@ -11,14 +21,12 @@ type TCreateCatResponse = {
 
 @Controller('cats')
 export class CatsController {
+  // constructor(private readonly catService: CatService) {}
+  constructor(private catService: CatService) {}
   @Get()
   @HttpCode(200)
-  getCats(): TGetCatsResponse {
-    return [
-      { name: 'Cat 1', age: 1 },
-      { name: 'Cat 2', age: 2 },
-      { name: 'Cat 3', age: 3 },
-    ];
+  getCats(): Promise<Cat[]> {
+    return this.catService.findAll();
   }
 
   @Post('create')
